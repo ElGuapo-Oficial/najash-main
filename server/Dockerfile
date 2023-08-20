@@ -32,4 +32,4 @@ RUN npm install --only=production
 EXPOSE 4000
 
 # Command to run the built application
-CMD ["npm", "serve"]
+CMD ["npm", "run", "serve"]
