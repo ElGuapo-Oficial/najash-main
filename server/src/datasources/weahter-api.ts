@@ -6,7 +6,7 @@ class WeatherAPI extends RESTDataSource {
         this.baseURL = 'https://api.weatherapi.com/v1/';
     }
 
-    async getCityWeather(city) {
+    async getCityWeather(city: string) {
         return await this.get(`forecast.json?key=f84f72c01ca44f22b3f203832232705&q=${city}&aqi=no`);
     }
 }

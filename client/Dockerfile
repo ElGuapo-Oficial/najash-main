@@ -1,20 +1,23 @@
-# Use a Node base image
-FROM node:18
+# ---- Build Stage ----
+FROM node:18 AS client-build
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package files and install dependencies
 COPY package*.json ./
-
-# Install app dependencies
 RUN npm install
 
-# Bundle app source by copying the content
+# Copy the rest of the client app files
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Build the production version of the app
+RUN npm run build  # This produces a `build` directory
 
-# Define the command to run the app
-CMD [ "npm", "start" ]
+# ---- Release Stage ----
+FROM nginx:alpine AS client-release
+
+# Copy the built app to the nginx directory
+COPY --from=client-build /app/build /usr/share/nginx/html
+
+# Expose port 80 for nginx
+EXPOSE 80
