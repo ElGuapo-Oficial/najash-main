@@ -7,7 +7,7 @@ import App from './App';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const client: ApolloClient<any> = new ApolloClient({
-  uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
+  uri: 'http://3.138.189.215:4000',
   cache: new InMemoryCache()
 });
 
