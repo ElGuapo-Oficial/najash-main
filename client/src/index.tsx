@@ -7,7 +7,7 @@ import App from './App';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const client: ApolloClient<any> = new ApolloClient({
-  uri: 'http://localhost:4000', // GraphQL server's endpoint
+  uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
   cache: new InMemoryCache()
 });
 
