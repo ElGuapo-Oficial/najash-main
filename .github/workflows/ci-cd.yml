@@ -27,18 +27,19 @@ jobs:
         npm ci
         npm test
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
     - name: Login to Docker Hub
       run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
     - name: Build and push Client Docker image
       run: |
-        docker build -t najash01/client-app:latest -f ./client/Dockerfile ./client
-        docker push najash01/client-app:latest
+        docker buildx build --platform linux/arm64 -t najash01/client-app:latest -f ./client/Dockerfile ./client --push
 
     - name: Build and push Server Docker image
       run: |
-        docker build -t najash01/server-app:latest -f ./server/Dockerfile ./server
-        docker push najash01/server-app:latest
+        docker buildx build --platform linux/arm64 -t najash01/server-app:latest -f ./server/Dockerfile ./server --push
 
     - name: Deploy on AWS EC2
       run: |
