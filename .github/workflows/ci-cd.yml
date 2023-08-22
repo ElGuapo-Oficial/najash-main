@@ -25,6 +25,8 @@ jobs:
   client: # This job is for client tasks and depends on the setup job
     needs: setup
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_GRAPHQL_ENDPOINT: ${{ secrets.REACT_APP_GRAPHQL_ENDPOINT }}
 
     steps:
     - name: Install dependencies (Client)
@@ -37,8 +39,6 @@ jobs:
   server: # This job is for server tasks and depends on the client job to ensure sequential execution
     needs: client
     runs-on: ubuntu-latest
-    env:
-      REACT_APP_GRAPHQL_ENDPOINT: ${{ secrets.REACT_APP_GRAPHQL_ENDPOINT }}
 
     steps:
     - name: Install dependencies and test (Server)
