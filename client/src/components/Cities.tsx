@@ -20,7 +20,7 @@ const Cities: React.FC = () => {
   return (
     <div>
       {data?.cities.map((city: { commonName: string; officialName: string }) => (
-        <div key={city.commonName}>
+        <div key={city.commonName} style={{backgroundColor: "red"}}>
           <h3>{city.commonName}</h3>
           <p>{city.officialName}</p>
         </div>
